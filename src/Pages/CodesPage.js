@@ -29,8 +29,6 @@ const CodesPage = () => {
   }
 
   function renderData({ item }) {
-    console.log(item, "item")
-    console.log(item.url)
     return (
       <QrCodesCard onPressTrash={() => deleteDataFromDB(item.key)} url={item.url} title={item.name}></QrCodesCard>
     )

@@ -3,17 +3,23 @@ import React from 'react'
 import Icon from "react-native-vector-icons/Entypo"
 import CodeButton from '../Components/Buttons/CodeButton'
 import auth from '@react-native-firebase/auth'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 const ProfilePage = ({ navigation }) => {
 
-    function logOut(){
-        auth().signOut().then(() => console.log("signed out"))
-        navigation.navigate("LoginPage")
-    }
+    const logOut = async () => {
+        try {
+            await auth().signOut()
+            await GoogleSignin.signOut();
+            console.log("çıkıldı")
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={{flexDirection:"row",margin:10,justifyContent:"space-between"}}>
+            <View style={{ flexDirection: "row", margin: 10, justifyContent: "space-between" }}>
                 <CodeButton name={"shop"} onPress={() => navigation.navigate("QrGeneratePage")} />
                 <CodeButton name={"log-out"} onPress={logOut} />
             </View>

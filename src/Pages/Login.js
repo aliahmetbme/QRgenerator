@@ -24,7 +24,6 @@ const Login = ({navigation}) => {
         auth().signInWithEmailAndPassword(values.email, values.password)
         .then(() => {
             console.log("User account signed ing ")
-            navigation.navigate("QrGeneratePage")
 
         }).catch(error => {
 
