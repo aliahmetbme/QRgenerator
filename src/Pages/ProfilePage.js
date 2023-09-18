@@ -56,7 +56,7 @@ const ProfilePage = ({ navigation }) => {
                     value={displayName}
                     onChangeText={(text) => setDisplayName(text)}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> 
         </SafeAreaView>
     )
 }

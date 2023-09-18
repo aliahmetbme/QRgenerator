@@ -4,10 +4,12 @@ import QRCode from 'react-native-qrcode-svg';
 import CodeButton from './Buttons/CodeButton';
 import ViewShot from 'react-native-view-shot';
 import useShare from "../Hooks/useShare"
+import useSaveToDisk from "../Hooks/useSaveToDisk"
 
 const QrCodesCard = ({ url, title, onPressDowload, onPressShare, onPressTrash }) => {
 
-  const { ref, shareImage } = useShare(url, title)
+   const { ref, shareImage } = useShare(url, title)
+  //  const { ref ,saveImage} = useSaveToDisk(url, title)
 
   return (
     <View style={{ backgroundColor: 'gray', margin: 10, padding: 10, borderRadius: 20, flexDirection:"row", justifyContent:"space-between", flexWrap:"wrap" }}>
@@ -20,7 +22,7 @@ const QrCodesCard = ({ url, title, onPressDowload, onPressShare, onPressTrash })
       </ViewShot>
       </View>
       <View style={{flex:0.3, justifyContent:"space-evenly", flexWrap:"wrap"}}>
-        <CodeButton onPress={onPressDowload} name={'download'}></CodeButton>
+        <CodeButton  name={'download'}></CodeButton>
         <CodeButton onPress={shareImage} name={'share-alternative'}></CodeButton>
         <CodeButton onPress={onPressTrash} name={'trash'}></CodeButton>
       </View>

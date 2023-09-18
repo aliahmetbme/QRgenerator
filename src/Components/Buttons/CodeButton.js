@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Entypo"
 const CodeButton = ({onPress, name}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Icon name={name} size={40} color="black"/>
+      <Icon name={name} size={35} color="black"/>
     </TouchableOpacity>
   )
 }

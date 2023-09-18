@@ -12,7 +12,7 @@ import Input from '../Components/Input'
 import NoContent from '../Components/NoContent'
 import ProfileComponent from '../Components/ProfileComponent'
 
-const QrCodeGenerator = ({navigation}) => {
+const QrCodeGenerator = ({ navigation }) => {
   const [Qrlink, setQrlink] = useState("")
   const [tempCode, setTempCode] = useState("")
   const [QrName, setQrName] = useState("")
@@ -21,7 +21,6 @@ const QrCodeGenerator = ({navigation}) => {
   // creating Qr code
   function generateQRcode() {
     { tempCode ? setQrlink(tempCode) : Alert.alert("Uyarı", "Boş değer girilemez") }
-    setTempCode("")
   }
 
   // saving the Qr to gallery
@@ -77,7 +76,7 @@ const QrCodeGenerator = ({navigation}) => {
     try {
       const databaseRef = database().ref(`/${auth().currentUser.uid}`);
       await databaseRef.push(qrcodeInfo);
-      Alert.alert("Uyarı","Qr kodu veritabanına kaydedildi.");
+      Alert.alert("Uyarı", "Qr kodu veritabanına kaydedildi.");
     } catch (error) {
       console.error('Veritabanına kaydedilirken hata oluştu:', error);
     }
@@ -96,10 +95,15 @@ const QrCodeGenerator = ({navigation}) => {
         </View> : <NoContent></NoContent>}
       <Input placeholder={"Please Provide url source"} value={tempCode} onChangeText={setTempCode} />
       <Input placeholder={"Please give name your code"} value={QrName} onChangeText={setQrName} />
-      <View style={{flexDirection:"row",flexWrap:"wrap", justifyContent:"space-between"}}>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         <CodeButton name={"plus"} onPress={generateQRcode} />
         <CodeButton name={"download"} onPress={saveQrToDisk} />
         <CodeButton name={"upload-to-cloud"} onPress={saveQrToDatabase} />
+        <CodeButton name={"cycle"} onPress={() => {
+          setQrlink("")
+          setTempCode("")
+          setQrName("")
+        }} />
       </View>
 
     </SafeAreaView>
