@@ -4,18 +4,9 @@ import QrCodesCard from '../Components/QrCodesCard'
 
 import database from "@react-native-firebase/database"
 import auth from "@react-native-firebase/auth"
-import QRCode from 'react-native-qrcode-svg'
 
 const CodesPage = () => {
   const [qrcodesData, setQrCodeData] = useState([])
-  const [URL, setUrl] = useState("")
-
-  const qrCodeRef = useRef(null)
-  const qrCode = (<QRCode
-    value={URL}
-    getRef={qrCodeRef} />)
-
-
 
   useEffect((() => {
     database().ref(`/${auth().currentUser.uid}`).on("value", snapshot => {
