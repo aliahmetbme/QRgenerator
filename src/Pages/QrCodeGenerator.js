@@ -13,7 +13,6 @@ import NoContent from '../Components/NoContent'
 import ProfileComponent from '../Components/ProfileComponent'
 
 const QrCodeGenerator = ({navigation}) => {
-
   const [Qrlink, setQrlink] = useState("")
   const [tempCode, setTempCode] = useState("")
   const [QrName, setQrName] = useState("")
