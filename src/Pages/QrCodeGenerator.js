@@ -1,67 +1,32 @@
 import { Alert, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState, useRef } from 'react'
 import QRCode from 'react-native-qrcode-svg'
-import RNFS from "react-native-fs"
-import { CameraRoll } from '@react-native-camera-roll/camera-roll'
+import ViewShot from 'react-native-view-shot'
 
 import database from "@react-native-firebase/database"
 import auth from "@react-native-firebase/auth"
+import useShare from "../Hooks/useShare"
 
 import CodeButton from '../Components/Buttons/CodeButton'
 import Input from '../Components/Input'
 import NoContent from '../Components/NoContent'
 import ProfileComponent from '../Components/ProfileComponent'
 
+
 const QrCodeGenerator = ({ navigation }) => {
+
   const [Qrlink, setQrlink] = useState("")
   const [tempCode, setTempCode] = useState("")
   const [QrName, setQrName] = useState("")
-  const qrCodeRef = useRef(null)
 
-  // creating Qr code
+  const {ref, saveImageToDisk} = useShare() 
+
+  // Create Qr code
   function generateQRcode() {
     { tempCode ? setQrlink(tempCode) : Alert.alert("Uyarı", "Boş değer girilemez") }
   }
 
-  // saving the Qr to gallery
-  async function saveQrToDisk() {
-
-    if (!QrName) {
-      alert("you must give name your Qr")
-      return
-    }
-
-    if (qrCodeRef.current) {
-      qrCodeRef.current.toDataURL(async (data) => {
-
-        // define the file path
-        const filePath = RNFS.CachesDirectoryPath + `/${QrName}.png`;
-        try {
-          // write the file
-          await RNFS.writeFile(filePath, data, 'base64')
-            .then((success) => {
-              console.log('FILE WRITTEN!');
-              // galeride istediğin bir albüme kaydet
-              CameraRoll.save(filePath, { album: "QrCodes" });
-              Alert.alert("kaydedildi")
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
-
-        } catch (error) {
-          console.error('Error saving to camera roll:', error);
-        }
-
-      });
-    } else {
-      Alert.alert("Uyarı", "QR kodu oluşturun ve sonra kaydedin.")
-    }
-
-    setQrName("")
-    setQrlink("")
-  }
-
+  // Save Qr to your Database
   async function saveQrToDatabase() {
     if (!Qrlink) {
       Alert.alert("Önce Qr qoce oluşturmalısınız")
@@ -86,18 +51,24 @@ const QrCodeGenerator = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ProfileComponent onPress={() => navigation.navigate("ProfilePage")}></ProfileComponent>
       {Qrlink ?
-        <View style={{ alignSelf: "center", margin: 20 }}>
+        <ViewShot ref={ref} style={{ alignItems:"center",justifyContent: "center", margin: 10, marginHorizontal:5 }}>
           <QRCode
-            onLoad={saveQrToDisk}
-            getRef={qrCodeRef}
-            size={200}
+            size={300}
             value={Qrlink}></QRCode>
-        </View> : <NoContent></NoContent>}
+            <Text style={{
+              color:"black",
+              padding:30,
+              fontWeight:"bold",
+              fontSize:20
+            }}>{QrName}</Text>
+        </ViewShot> : <NoContent></NoContent>}
       <Input placeholder={"Please Provide url source"} value={tempCode} onChangeText={setTempCode} />
+      
       <Input placeholder={"Please give name your code"} value={QrName} onChangeText={setQrName} />
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+
+      <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent:"space-between" }}>
         <CodeButton name={"plus"} onPress={generateQRcode} />
-        <CodeButton name={"download"} onPress={saveQrToDisk} />
+        <CodeButton name={"download"} onPress={saveImageToDisk} />
         <CodeButton name={"upload-to-cloud"} onPress={saveQrToDatabase} />
         <CodeButton name={"cycle"} onPress={() => {
           setQrlink("")

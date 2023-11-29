@@ -35,8 +35,7 @@ const CodesPage = () => {
   }
 
   return (
-    <SafeAreaView
-    style={{flex:1}}>
+    <SafeAreaView style={{flex:1}}>
       <FlatList
         data={qrcodesData}
         renderItem={renderData}></FlatList>

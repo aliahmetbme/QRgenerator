@@ -1,13 +1,10 @@
 import React, { useRef } from 'react';
-import { Alert, Image, SafeAreaView, Button, Text } from 'react-native';
-import ViewShot, { captureRef } from "react-native-view-shot";
+import { Alert } from 'react-native';
+import { captureRef } from "react-native-view-shot";
 import { CameraRoll } from '@react-native-camera-roll/camera-roll'
-import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
-import QRCode from 'react-native-qrcode-svg';
-import { err } from 'react-native-svg/lib/typescript/xml';
 
-export default function ShareQr(title) {
+export default function useShare() {
   const ref = useRef(null);
 
   const shareImage = async () => {
@@ -17,7 +14,6 @@ export default function ShareQr(title) {
           format: "png",
           quality: 0.7
         });
-
         // Şimdi uri'yi paylaşmak için kullanabilirsiniz.
         // Örnek olarak:
         Share.open({
@@ -29,7 +25,9 @@ export default function ShareQr(title) {
         Alert.alert('Hata', 'Resim yakalama işlemi başarısız oldu.');
       }
     } catch (err) {
-      //console.log(err);
+      if (err == "User did not share"){
+        console.log("paylaşmadı")
+      }
     }
   };
 
@@ -39,23 +37,21 @@ export default function ShareQr(title) {
     try {
       if (ref.current) {
         const res = await ref.current.capture();
-        //  await  captureRef (ref, {
-        //   fileName: `${title}`,
-        //   quality:1,
-        //   format:"png",
-        // })
+
         await CameraRoll.save(res, {
           type:"photo",
           album:"QrCodes" 
         });
     
         console.log("Kaydedildi");
+        Alert.alert("Tebrikler ","Kaydedildi")
+      } else {
+        Alert.alert("Hata","Kaydedilecek bir qr bulunamadı")
       }
-    } catch (err) {ß
-      console.log(err);
+    } catch (err) {
+       console.log(err);
     }
   }
-
 
   return { ref, shareImage, saveImageToDisk }
 }

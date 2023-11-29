@@ -4,16 +4,15 @@ import Icon from "react-native-vector-icons/Entypo"
 import auth from '@react-native-firebase/auth'
 const ProfileComponent = ({onPress}) => {
     const [name] = useState(auth().currentUser.displayName)
-    
 
     return (
         <SafeAreaView style={{justifyContent:"space-between",flexDirection:"row",margin:10}}>
-            <View>
-                <Text style={{fontSize:25,fontWeight:"bold",color:"black"}}>Welcome {name}</Text>
-                <Text style={{fontSize:15,color:"black"}}>Let's create your Qr codes</Text>
+            <View style={{flex:0.8}}>
+                <Text style={{fontSize:30,fontWeight:"bold",color:"black"}}>Welcome {name}</Text>
+                <Text style={{fontSize:18,color:"black"}}>Let's create your Qr codes</Text>
             </View>
-            <TouchableOpacity onPress={onPress}>
-                <Icon name={"user"} size={50} color="black" />
+            <TouchableOpacity style={{flex:0.2}} onPress={onPress}>
+                <Icon name={"user"} size={60} color="black" />
             </TouchableOpacity>
         </SafeAreaView>
     )
