@@ -9,7 +9,7 @@ import useShare from "../Hooks/useShare"
 
 import CodeButton from '../Components/Buttons/CodeButton'
 import Input from '../Components/Input'
-import NoContent from '../Components/NoContent'
+import NoContent from '../Components/NoQrComponent'
 import ProfileComponent from '../Components/ProfileComponent'
 
 
@@ -23,17 +23,17 @@ const QrCodeGenerator = ({ navigation }) => {
 
   // Create Qr code
   function generateQRcode() {
-    { tempCode ? setQrlink(tempCode) : Alert.alert("Uyarı", "Boş değer girilemez") }
+    { tempCode ? setQrlink(tempCode) : Alert.alert("Warn", "You cannot provide empty values") }
   }
 
   // Save Qr to your Database
   async function saveQrToDatabase() {
     if (!Qrlink) {
-      Alert.alert("Önce Qr qoce oluşturmalısınız")
+      Alert.alert("First, please create QR code ")
       return
     }
     if (!QrName) {
-      Alert.alert("Uyarı", "Qr kodunuza bir isim vermelisiniz.");
+      Alert.alert("Warn", "Please give name your QR code.");
       return;
     }
 
@@ -41,9 +41,11 @@ const QrCodeGenerator = ({ navigation }) => {
     try {
       const databaseRef = database().ref(`/${auth().currentUser.uid}`);
       await databaseRef.push(qrcodeInfo);
-      Alert.alert("Uyarı", "Qr kodu veritabanına kaydedildi.");
+      Alert.alert("Warn", "Your QR code save to database.");
     } catch (error) {
-      console.error('Veritabanına kaydedilirken hata oluştu:', error);
+      Alert.alert("Error", 'An error occured');
+
+      console.error('An error occured', error);
     }
   }
 

@@ -8,7 +8,7 @@ import QrCodeGenerator from "./Pages/QrCodeGenerator"
 import Login from './Pages/Login';
 import Registration from './Pages/Registration';
 import ProfilePage from './Pages/ProfilePage';
-import CodesPage from './Components/Codes';
+import CodesPage from './Components/QrCodesList';
 
 const Stack = createNativeStackNavigator()
 

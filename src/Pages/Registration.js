@@ -8,7 +8,6 @@ import auth from "@react-native-firebase/auth"
 
 const Registration = ({navigation}) => {
   const initialValues = {
-    username:"",
     email: "",
     password: "",
     confirmPassword: ""
@@ -16,12 +15,12 @@ const Registration = ({navigation}) => {
 
   function register(values) {
     if (!values.email || !values.password || !values.confirmPassword) {
-      Alert.alert("Hata","Boş bırakılamaz")
+      Alert.alert("Warn","All information must be given")
       return
     }
 
     if (values.password !== values.confirmPassword){
-      Alert.alert("Hata","Şifreler Eşleşmelidir")
+      Alert.alert("Warn","Passwords must be mathed")
       return
     }
 
@@ -42,8 +41,8 @@ const Registration = ({navigation}) => {
 }
 
   return (
-    <SafeAreaView>
-      <View style={{ alignItems: "center", margin: 20, alignSelf: "center" }}>
+    <SafeAreaView style={{flex:1}}>
+      <View style={{ flex:0.6, alignItems: "center", margin: 20, alignSelf: "center" }}>
         <Icon name={"add-user"} size={150} color="black"></Icon>
       </View>
       <Formik
@@ -52,7 +51,6 @@ const Registration = ({navigation}) => {
       >
         {({ handleSubmit, handleChange, values }) => (
           <View>
-            <Input onChangeText={handleChange("username")} value={values.username} placeholder={"Username"} name="username" />
             <Input onChangeText={handleChange("email")} value={values.email} placeholder={"Email"} name="email" />
             <Input onChangeText={handleChange("password")} value={values.password} password={true} placeholder={"Password"} name="password" />
             <Input onChangeText={handleChange("confirmPassword")} value={values.confirmPassword} password={true} placeholder={"Confirm Password"} name="confirmPassword" />

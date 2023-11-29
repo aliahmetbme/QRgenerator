@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Entypo"
 import CodeButton from '../Components/Buttons/CodeButton'
 import auth from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import CodesPage from '../Components/Codes'
+import CodesPage from '../Components/QrCodesList'
 
 const ProfilePage = ({ navigation }) => {
     const [name] = useState(auth().currentUser.displayName)

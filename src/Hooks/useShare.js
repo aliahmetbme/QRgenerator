@@ -22,7 +22,7 @@ export default function useShare() {
           type: 'image/png',
         });
       } else {
-        Alert.alert('Hata', 'Resim yakalama işlemi başarısız oldu.');
+        Alert.alert('Error', 'Failed to capture the image.');
       }
     } catch (err) {
       if (err == "User did not share"){
@@ -44,9 +44,9 @@ export default function useShare() {
         });
     
         console.log("Kaydedildi");
-        Alert.alert("Tebrikler ","Kaydedildi")
+        Alert.alert("Congrulations  ","It was saved")
       } else {
-        Alert.alert("Hata","Kaydedilecek bir qr bulunamadı")
+        Alert.alert("Hata","It could not find any QR code to save")
       }
     } catch (err) {
        console.log(err);

@@ -10,7 +10,7 @@ const QrCodesCard = ({ url, title, onPressDowload, onPressShare, onPressTrash })
    const { ref, shareImage ,saveImageToDisk} = useShare(url, title)
 
   return (
-    <View style={{ backgroundColor: 'gray', margin: 10, padding: 10, borderRadius: 20, flexDirection:"row", justifyContent:"space-between", flexWrap:"wrap" }}>
+    <View style={{ backgroundColor: '#898989', margin: 10, padding: 10, borderRadius: 20, flexDirection:"row", justifyContent:"space-between", flexWrap:"wrap" }}>
       <View style={{flexWrap:"wrap", flex:0.7}}>
       <ViewShot
         ref={ref}

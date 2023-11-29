@@ -3,7 +3,7 @@ import React from 'react'
 import Input from '../Components/Input'
 import { Formik } from "formik"
 import LoginButton from '../Components/Buttons/LoginButton'
-import RegisterMe from '../Components/Buttons/RegisterMe'
+import RegisterMe from '../Components/Buttons/RememberMe'
 import GoogleSignInButton from "../Components/Buttons/GoogleSingInButton"
 import RegisterPageInButton from '../Components/Buttons/RegisterPageInButton'
 import LottieView from 'lottie-react-native'
@@ -17,7 +17,7 @@ const Login = ({navigation}) => {
     }
     function login(values) {
         if (!values.email || !values.password) {
-            Alert.alert("Hata","Boş bırakılamaz")
+            Alert.alert("Warn","All information must be given")
             return
         }
 
@@ -41,7 +41,7 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={{flex:1}}>
-            <LottieView source={require("../Assets/wmlhxOJBSY.json")} useNativeLooping autoPlay loop style={{flex:1,margin:20,marginVertical:30}}></LottieView>
+            <LottieView source={require("../Assets/wmlhxOJBSY.json")} useNativeLooping autoPlay loop style={{flex:0.9,margin:10,marginVertical:30}}></LottieView>
             <Formik
                 initialValues={initialValues}
                 onSubmit={values => login(values)}
