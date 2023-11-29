@@ -4,8 +4,7 @@ import Icon from "react-native-vector-icons/Entypo"
 import auth from '@react-native-firebase/auth'
 const ProfileComponent = ({onPress}) => {
     const [name] = useState(auth().currentUser.displayName)
-    console.log(auth().currentUser.displayName,"auth().currentUser.displayName")
-    console.log(name,"name")
+    
 
     return (
         <SafeAreaView style={{justifyContent:"space-between",flexDirection:"row",margin:10}}>

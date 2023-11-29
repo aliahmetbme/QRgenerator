@@ -5,6 +5,7 @@ import { CameraRoll } from '@react-native-camera-roll/camera-roll'
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import QRCode from 'react-native-qrcode-svg';
+import { err } from 'react-native-svg/lib/typescript/xml';
 
 export default function ShareQr(title) {
   const ref = useRef(null);
@@ -34,26 +35,27 @@ export default function ShareQr(title) {
 
 
 
-  async function saveQrToDisk() {
-    if (ref.current) {
-      ref.current.capture().then(async (data) => {
-        // Define the file path
-        const filePath = RNFS.CachesDirectoryPath + `/${title}.png`;
-        try {
-          // Write the file
-          await RNFS.writeFile(filePath, data, 'base64');
-          // Save to the camera roll in the specified album
-          await CameraRoll.save(filePath, {type, album: 'QrCodes' });
-          Alert.alert('Kaydedildi');
-        } catch (error) {
-          console.error('Error saving to camera roll:', error);
-        }
-      });
-    } else {
-      Alert.alert('Uyarı', 'QR kodu oluşturun ve sonra kaydedin.');
+  async function saveImageToDisk() {
+    try {
+      if (ref.current) {
+        const res = await ref.current.capture();
+        //  await  captureRef (ref, {
+        //   fileName: `${title}`,
+        //   quality:1,
+        //   format:"png",
+        // })
+        await CameraRoll.save(res, {
+          type:"photo",
+          album:"QrCodes" 
+        });
+    
+        console.log("Kaydedildi");
+      }
+    } catch (err) {ß
+      console.log(err);
     }
   }
 
 
-  return { ref, shareImage, saveQrToDisk }
+  return { ref, shareImage, saveImageToDisk }
 }
