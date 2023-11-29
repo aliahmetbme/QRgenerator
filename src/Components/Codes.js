@@ -1,6 +1,6 @@
 import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View, Alert } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
-import QrCodesCard from '../Components/QrCodesCard'
+import QrCodesCard from './QrCodesCard'
 
 import database from "@react-native-firebase/database"
 import auth from "@react-native-firebase/auth"
@@ -8,6 +8,7 @@ import auth from "@react-native-firebase/auth"
 const CodesPage = () => {
   const [qrcodesData, setQrCodeData] = useState([])
 
+  // get data from the database 
   useEffect((() => {
     database().ref(`/${auth().currentUser.uid}`).on("value", snapshot => {
       const data = snapshot.val();

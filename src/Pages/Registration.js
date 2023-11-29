@@ -8,6 +8,7 @@ import auth from "@react-native-firebase/auth"
 
 const Registration = ({navigation}) => {
   const initialValues = {
+    username:"",
     email: "",
     password: "",
     confirmPassword: ""
@@ -51,6 +52,7 @@ const Registration = ({navigation}) => {
       >
         {({ handleSubmit, handleChange, values }) => (
           <View>
+            <Input onChangeText={handleChange("username")} value={values.username} placeholder={"Username"} name="username" />
             <Input onChangeText={handleChange("email")} value={values.email} placeholder={"Email"} name="email" />
             <Input onChangeText={handleChange("password")} value={values.password} password={true} placeholder={"Password"} name="password" />
             <Input onChangeText={handleChange("confirmPassword")} value={values.confirmPassword} password={true} placeholder={"Confirm Password"} name="confirmPassword" />
