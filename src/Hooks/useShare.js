@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
 import { Alert, Image, SafeAreaView, Button, Text } from 'react-native';
 import ViewShot, { captureRef } from "react-native-view-shot";
+import { CameraRoll } from '@react-native-camera-roll/camera-roll'
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import QRCode from 'react-native-qrcode-svg';
 
-const source = "https://bczl.meb.k12.tr/meb_iys_dosyalar/34/06/969693/resimler/2021_04/02102222_2118fbf0-51e6-477f-b6f7-175761b15217.jpg";
-
-export default function ShareQr(url, title) {
+export default function ShareQr(title) {
   const ref = useRef(null);
 
   const shareImage = async () => {
@@ -17,7 +16,7 @@ export default function ShareQr(url, title) {
           format: "png",
           quality: 0.7
         });
-        
+
         // Şimdi uri'yi paylaşmak için kullanabilirsiniz.
         // Örnek olarak:
         Share.open({
@@ -29,9 +28,32 @@ export default function ShareQr(url, title) {
         Alert.alert('Hata', 'Resim yakalama işlemi başarısız oldu.');
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
-    };
+  };
 
-    return {ref, shareImage}
+
+
+  async function saveQrToDisk() {
+    if (ref.current) {
+      ref.current.capture().then(async (data) => {
+        // Define the file path
+        const filePath = RNFS.CachesDirectoryPath + `/${title}.png`;
+        try {
+          // Write the file
+          await RNFS.writeFile(filePath, data, 'base64');
+          // Save to the camera roll in the specified album
+          await CameraRoll.save(filePath, {type, album: 'QrCodes' });
+          Alert.alert('Kaydedildi');
+        } catch (error) {
+          console.error('Error saving to camera roll:', error);
+        }
+      });
+    } else {
+      Alert.alert('Uyarı', 'QR kodu oluşturun ve sonra kaydedin.');
+    }
+  }
+
+
+  return { ref, shareImage, saveQrToDisk }
 }

@@ -30,7 +30,7 @@
     "react-native-svg": "^13.13.0",
     "react-native-svg-uri": "^1.2.3",
     "react-native-vector-icons": "^10.0.0",
-    "react-native-view-shot": "^3.7.0"
+    "react-native-view-shot": "^3.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

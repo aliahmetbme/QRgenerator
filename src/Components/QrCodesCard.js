@@ -8,8 +8,7 @@ import useSaveToDisk from "../Hooks/useSaveToDisk"
 
 const QrCodesCard = ({ url, title, onPressDowload, onPressShare, onPressTrash }) => {
 
-   const { ref, shareImage } = useShare(url, title)
-  //  const { ref ,saveImage} = useSaveToDisk(url, title)
+   const { ref, shareImage ,saveQrToDisk} = useShare(url, title)
 
   return (
     <View style={{ backgroundColor: 'gray', margin: 10, padding: 10, borderRadius: 20, flexDirection:"row", justifyContent:"space-between", flexWrap:"wrap" }}>
@@ -22,7 +21,7 @@ const QrCodesCard = ({ url, title, onPressDowload, onPressShare, onPressTrash })
       </ViewShot>
       </View>
       <View style={{flex:0.3, justifyContent:"space-evenly", flexWrap:"wrap"}}>
-        <CodeButton  name={'download'}></CodeButton>
+        <CodeButton onPress={saveQrToDisk} name={'download'}></CodeButton>
         <CodeButton onPress={shareImage} name={'share-alternative'}></CodeButton>
         <CodeButton onPress={onPressTrash} name={'trash'}></CodeButton>
       </View>

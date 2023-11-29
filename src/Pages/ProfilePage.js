@@ -17,7 +17,6 @@ const ProfilePage = ({ navigation }) => {
                 displayName: displayName,
             });
             // Kullanıcı adı başarıyla güncellendi
-            console.log('Kullanıcı adı güncellendi:', user.displayName);
             setDisplayName("")
         } catch (error) {
             console.error('Kullanıcı adı güncelleme hatası:', error);
